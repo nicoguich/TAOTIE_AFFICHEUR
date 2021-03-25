@@ -5,14 +5,49 @@ import random
 from adafruit_ht16k33.segments import Seg14x4
 
 
-i2c = board.I2C()
-display1 = Seg14x4(i2c, address=0x70)
-display2 = Seg14x4(i2c, address=0x71)
-display3 = Seg14x4(i2c, address=0x72)
-display4 = Seg14x4(i2c, address=0x73)
-display5 = Seg14x4(i2c, address=0x74)
-display6 = Seg14x4(i2c, address=0x75)
+test= True
 
+display1_connect= False
+display2_connect= False
+display3_connect= False
+display4_connect= False
+display5_connect= False
+display6_connect= False
+
+
+
+i2c = board.I2C()
+
+try :
+    display1 = Seg14x4(i2c, address=0x70)
+    display1_connect= True
+except:
+    pass
+try:
+    display2 = Seg14x4(i2c, address=0x71)
+    display2_connect= True
+except:
+    pass
+try:
+    display3 = Seg14x4(i2c, address=0x72)
+    display3_connect= True
+except:
+    pass
+try:
+    display4 = Seg14x4(i2c, address=0x73)
+    display4_connect= True
+except:
+    pass
+try:
+    display5 = Seg14x4(i2c, address=0x74)
+    display5_connect= True
+except:
+    pass
+try:
+    display6 = Seg14x4(i2c, address=0x75)
+    display6_connect= True
+except:
+    pass
 
 str_temp = ""
 pre_bin_in = [0,0,0,0,0,0,0,0]
@@ -315,131 +350,188 @@ mot6_list = list(mot6)
 
 while True :
 
-
-
-    random_ism=random.randint(0, num_lines_ism-1)
-    random_pre=random.randint(0, num_lines_pre-1)
-
-    ism_choisi= list_ism[random_ism]
-    pre_choisi=list_pre[random_pre]
-    print(pre_choisi+"_"+ism_choisi)
+    if test==False:
 
 
 
-    for x in range(8) :
-        lettre_pre[x]=' '
+        random_ism=random.randint(0, num_lines_ism-1)
+        random_pre=random.randint(0, num_lines_pre-1)
 
-    for x in range(8-len(pre_choisi),8):
-        lettre_pre[x]=pre_choisi[x-(8-len(pre_choisi))]
-
-
-
-    for x in range(15) :
-        try :
-            lettre_ism[x]=ism_choisi[x]
-        except:
-            lettre_ism[x]=' '
-            pass
-
-
-    for x in range (8):
-
-        pre_bin_out[x]=convert_bin(lettre_pre[x])
-        if x<=3 :
-            pre_bin_in[x]=convert_bin(mot1_list[x])
-        else :
-            pre_bin_in[x]=convert_bin(mot2_list[x-4])
-
-
-    for x in range (15):
-
-        ism_bin_out[x]=convert_bin(lettre_ism[x])
-        if x<=2 :
-            ism_bin_in[x]=convert_bin(mot3_list[x+1])
-        elif x>2 and x<=6 :
-            ism_bin_in[x]=convert_bin(mot4_list[x-3])
-        elif x>6 and x<=10 :
-            ism_bin_in[x]=convert_bin(mot5_list[x-7])
-        elif x>10 :
-            ism_bin_in[x]=convert_bin(mot6_list[x-11])
-
-
-    for x in range(0,18):
-        for y in range (8):
-
-            pre_bin_in[y]=morph(pre_bin_in[y],pre_bin_out[y],x)
-        for y in range (15):
-
-            ism_bin_in[y]=morph(ism_bin_in[y],ism_bin_out[y],x)
-
-
-        s=''
-        display1.set_digit_raw(0,int(s.join(pre_bin_in[0]),2))
-        display1.set_digit_raw(1,int(s.join(pre_bin_in[1]),2))
-        display1.set_digit_raw(2,int(s.join(pre_bin_in[2]),2))
-        display1.set_digit_raw(3,int(s.join(pre_bin_in[3]),2))
-        display2.set_digit_raw(0,int(s.join(pre_bin_in[4]),2))
-        display2.set_digit_raw(1,int(s.join(pre_bin_in[5]),2))
-        display2.set_digit_raw(2,int(s.join(pre_bin_in[6]),2))
-        display2.set_digit_raw(3,int(s.join(pre_bin_in[7]),2))
-        display3.set_digit_raw(1,int(s.join(ism_bin_in[0]),2))
-        display3.set_digit_raw(2,int(s.join(ism_bin_in[1]),2))
-        display3.set_digit_raw(3,int(s.join(ism_bin_in[2]),2))
-        display4.set_digit_raw(0,int(s.join(ism_bin_in[3]),2))
-        display4.set_digit_raw(1,int(s.join(ism_bin_in[4]),2))
-        display4.set_digit_raw(2,int(s.join(ism_bin_in[5]),2))
-        display4.set_digit_raw(3,int(s.join(ism_bin_in[6]),2))
-        display5.set_digit_raw(0,int(s.join(ism_bin_in[7]),2))
-        display5.set_digit_raw(1,int(s.join(ism_bin_in[8]),2))
-        display5.set_digit_raw(2,int(s.join(ism_bin_in[9]),2))
-        display5.set_digit_raw(3,int(s.join(ism_bin_in[10]),2))
-        display6.set_digit_raw(0,int(s.join(ism_bin_in[11]),2))
-        display6.set_digit_raw(1,int(s.join(ism_bin_in[12]),2))
-        display6.set_digit_raw(2,int(s.join(ism_bin_in[13]),2))
-        display6.set_digit_raw(3,int(s.join(ism_bin_in[14]),2))
-#        time.sleep(0.01)
+        ism_choisi= list_ism[random_ism]
+        pre_choisi=list_pre[random_pre]
+        print(pre_choisi+"_"+ism_choisi)
 
 
 
+        for x in range(8) :
+            lettre_pre[x]=' '
+
+        for x in range(8-len(pre_choisi),8):
+            lettre_pre[x]=pre_choisi[x-(8-len(pre_choisi))]
 
 
-    mot1_list[0]=lettre_pre[0]
-    mot1_list[1]=lettre_pre[1]
-    mot1_list[2]=lettre_pre[2]
-    mot1_list[3]=lettre_pre[3]
 
-    mot2_list[0]=lettre_pre[4]
-    mot2_list[1]=lettre_pre[5]
-    mot2_list[2]=lettre_pre[6]
-    mot2_list[3]=lettre_pre[7]
-
-    mot3_list[0]="_"
-    mot3_list[1]=lettre_ism[0]
-    mot3_list[2]=lettre_ism[1]
-    mot3_list[3]=lettre_ism[2]
-
-    mot4_list[0]=lettre_ism[3]
-    mot4_list[1]=lettre_ism[4]
-    mot4_list[2]=lettre_ism[5]
-    mot4_list[3]=lettre_ism[6]
-
-    mot5_list[0]=lettre_ism[7]
-    mot5_list[1]=lettre_ism[8]
-    mot5_list[2]=lettre_ism[9]
-    mot5_list[3]=lettre_ism[10]
-
-    mot6_list[0]=lettre_ism[11]
-    mot6_list[1]=lettre_ism[12]
-    mot6_list[2]=lettre_ism[13]
-    mot6_list[3]=lettre_ism[14]
-
-    display1.print(''.join(mot1_list))
-    display2.print(''.join(mot2_list))
-    display3.print(''.join(mot3_list))
-    display4.print(''.join(mot4_list))
-    display5.print(''.join(mot5_list))
-    display6.print(''.join(mot6_list))
-    time.sleep(3)
+        for x in range(15) :
+            try :
+                lettre_ism[x]=ism_choisi[x]
+            except:
+                lettre_ism[x]=' '
+                pass
 
 
-#    jam()
+        for x in range (8):
+
+            pre_bin_out[x]=convert_bin(lettre_pre[x])
+            if x<=3 :
+                pre_bin_in[x]=convert_bin(mot1_list[x])
+            else :
+                pre_bin_in[x]=convert_bin(mot2_list[x-4])
+
+
+        for x in range (15):
+
+            ism_bin_out[x]=convert_bin(lettre_ism[x])
+            if x<=2 :
+                ism_bin_in[x]=convert_bin(mot3_list[x+1])
+            elif x>2 and x<=6 :
+                ism_bin_in[x]=convert_bin(mot4_list[x-3])
+            elif x>6 and x<=10 :
+                ism_bin_in[x]=convert_bin(mot5_list[x-7])
+            elif x>10 :
+                ism_bin_in[x]=convert_bin(mot6_list[x-11])
+
+
+        for x in range(0,18):
+            for y in range (8):
+
+                pre_bin_in[y]=morph(pre_bin_in[y],pre_bin_out[y],x)
+            for y in range (15):
+
+                ism_bin_in[y]=morph(ism_bin_in[y],ism_bin_out[y],x)
+
+
+            s=''
+            if display1_connect:
+                display1.set_digit_raw(0,int(s.join(pre_bin_in[0]),2))
+                display1.set_digit_raw(1,int(s.join(pre_bin_in[1]),2))
+                display1.set_digit_raw(2,int(s.join(pre_bin_in[2]),2))
+                display1.set_digit_raw(3,int(s.join(pre_bin_in[3]),2))
+            if display2_connect:
+                display2.set_digit_raw(0,int(s.join(pre_bin_in[4]),2))
+                display2.set_digit_raw(1,int(s.join(pre_bin_in[5]),2))
+                display2.set_digit_raw(2,int(s.join(pre_bin_in[6]),2))
+                display2.set_digit_raw(3,int(s.join(pre_bin_in[7]),2))
+            if display3_connect:
+                display3.set_digit_raw(1,int(s.join(ism_bin_in[0]),2))
+                display3.set_digit_raw(2,int(s.join(ism_bin_in[1]),2))
+                display3.set_digit_raw(3,int(s.join(ism_bin_in[2]),2))
+            if display4_connect:
+                display4.set_digit_raw(0,int(s.join(ism_bin_in[3]),2))
+                display4.set_digit_raw(1,int(s.join(ism_bin_in[4]),2))
+                display4.set_digit_raw(2,int(s.join(ism_bin_in[5]),2))
+                display4.set_digit_raw(3,int(s.join(ism_bin_in[6]),2))
+            if display5_connect:
+                display5.set_digit_raw(0,int(s.join(ism_bin_in[7]),2))
+                display5.set_digit_raw(1,int(s.join(ism_bin_in[8]),2))
+                display5.set_digit_raw(2,int(s.join(ism_bin_in[9]),2))
+                display5.set_digit_raw(3,int(s.join(ism_bin_in[10]),2))
+            if display6_connect:
+                display6.set_digit_raw(0,int(s.join(ism_bin_in[11]),2))
+                display6.set_digit_raw(1,int(s.join(ism_bin_in[12]),2))
+                display6.set_digit_raw(2,int(s.join(ism_bin_in[13]),2))
+                display6.set_digit_raw(3,int(s.join(ism_bin_in[14]),2))
+            time.sleep(0.5)
+
+
+
+
+
+        mot1_list[0]=lettre_pre[0]
+        mot1_list[1]=lettre_pre[1]
+        mot1_list[2]=lettre_pre[2]
+        mot1_list[3]=lettre_pre[3]
+
+        mot2_list[0]=lettre_pre[4]
+        mot2_list[1]=lettre_pre[5]
+        mot2_list[2]=lettre_pre[6]
+        mot2_list[3]=lettre_pre[7]
+
+        mot3_list[0]="_"
+        mot3_list[1]=lettre_ism[0]
+        mot3_list[2]=lettre_ism[1]
+        mot3_list[3]=lettre_ism[2]
+
+        mot4_list[0]=lettre_ism[3]
+        mot4_list[1]=lettre_ism[4]
+        mot4_list[2]=lettre_ism[5]
+        mot4_list[3]=lettre_ism[6]
+
+        mot5_list[0]=lettre_ism[7]
+        mot5_list[1]=lettre_ism[8]
+        mot5_list[2]=lettre_ism[9]
+        mot5_list[3]=lettre_ism[10]
+
+        mot6_list[0]=lettre_ism[11]
+        mot6_list[1]=lettre_ism[12]
+        mot6_list[2]=lettre_ism[13]
+        mot6_list[3]=lettre_ism[14]
+        if display1_connect:
+            display1.print(''.join(mot1_list))
+        if display2_connect:
+            display2.print(''.join(mot2_list))
+        if display3_connect:
+            display3.print(''.join(mot3_list))
+        if display4_connect:
+            display4.print(''.join(mot4_list))
+        if display5_connect:
+            display5.print(''.join(mot5_list))
+        if display6_connect:
+            display6.print(''.join(mot6_list))
+        time.sleep(3)
+
+    else :
+
+        if display1_connect:
+            display1.set_digit_raw(0,int("0b0011111111111111",2))
+            display1.set_digit_raw(1,int("0b0011111111111111",2))
+            display1.set_digit_raw(2,int("0b0011111111111111",2))
+            display1.set_digit_raw(3,int("0b0011111111111111",2))
+        if display2_connect:
+            display2.set_digit_raw(0,int("0b0011111111111111",2))
+            display2.set_digit_raw(1,int("0b0011111111111111",2))
+            display2.set_digit_raw(2,int("0b0011111111111111",2))
+            display2.set_digit_raw(3,int("0b0011111111111111",2))
+        if display3_connect:
+            display3.set_digit_raw(0,int("0b0011111111111111",2))
+            display3.set_digit_raw(1,int("0b0011111111111111",2))
+            display3.set_digit_raw(2,int("0b0011111111111111",2))
+            display3.set_digit_raw(3,int("0b0011111111111111",2))
+        if display4_connect:
+            display4.set_digit_raw(0,int("0b0011111111111111",2))
+            display4.set_digit_raw(1,int("0b0011111111111111",2))
+            display4.set_digit_raw(2,int("0b0011111111111111",2))
+            display4.set_digit_raw(3,int("0b0011111111111111",2))
+        if display5_connect:
+            display5.set_digit_raw(0,int("0b0011111111111111",2))
+            display5.set_digit_raw(1,int("0b0011111111111111",2))
+            display5.set_digit_raw(2,int("0b0011111111111111",2))
+            display5.set_digit_raw(3,int("0b0011111111111111",2))
+        if display6_connect:
+            display6.set_digit_raw(0,int("0b0011111111111111",2))
+            display6.set_digit_raw(1,int("0b0011111111111111",2))
+            display6.set_digit_raw(2,int("0b0011111111111111",2))
+            display6.set_digit_raw(3,int("0b0011111111111111",2))
+        time.sleep(3)
+        if display1_connect:
+            display1.print("1111")
+        if display2_connect:
+            display2.print("2222")
+        if display3_connect:
+            display3.print("3333")
+        if display4_connect:
+            display4.print("4444")
+        if display5_connect:
+            display5.print("5555")
+        if display6_connect:
+            display6.print("6666")
+        time.sleep(3)
