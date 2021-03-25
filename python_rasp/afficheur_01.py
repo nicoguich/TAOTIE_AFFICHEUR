@@ -1,3 +1,4 @@
+import RPi.GPIO as GPIO
 import board
 import time
 import string
@@ -5,7 +6,22 @@ import random
 from adafruit_ht16k33.segments import Seg14x4
 
 
-test= True
+
+adresse=0
+
+
+GPIO.setmode(GPIO.BCM)     # set up BCM GPIO numbering
+GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(25, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(7, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(20, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+
+
+
 
 display1_connect= False
 display2_connect= False
@@ -350,6 +366,77 @@ mot6_list = list(mot6)
 
 while True :
 
+    if display1_connect==False:
+        try :
+            display1 = Seg14x4(i2c, address=0x70)
+            display1_connect= True
+        except:
+            display1_connect= False
+            pass
+    if display2_connect==False:
+        try:
+            display2 = Seg14x4(i2c, address=0x71)
+            display2_connect= True
+        except:
+            display2_connect= False
+            pass
+    if display3_connect==False:
+        try:
+            display3 = Seg14x4(i2c, address=0x72)
+            display3_connect= True
+        except:
+            display3_connect= False
+            pass
+    if display4_connect==False:
+        try:
+            display4 = Seg14x4(i2c, address=0x73)
+            display4_connect= True
+        except:
+            display4_connect= False
+            pass
+    if display5_connect==False:
+        try:
+            display5 = Seg14x4(i2c, address=0x74)
+            display5_connect= True
+        except:
+            display5_connect= False
+            pass
+    if display6_connect==False:
+        try:
+            display6 = Seg14x4(i2c, address=0x75)
+            display6_connect= True
+        except:
+            display6_connect= False
+            pass
+
+
+
+
+
+    adresse=0
+    if GPIO.input(23):
+        adresse=adresse+2**6
+    if GPIO.input(24):
+        adresse=adresse+2**5
+    if GPIO.input(25):
+        adresse=adresse+2**4
+    if GPIO.input(7):
+        adresse=adresse+2**3
+    if GPIO.input(12):
+        adresse=adresse+2**2
+    if GPIO.input(16):
+        adresse=adresse+2**1
+    if GPIO.input(20):
+        adresse=adresse+2**0
+    if GPIO.input(21):
+        test= True
+    else:
+        test=False
+    print("adresse: "+str(adresse))
+
+
+
+
     if test==False:
 
 
@@ -412,34 +499,58 @@ while True :
 
             s=''
             if display1_connect:
-                display1.set_digit_raw(0,int(s.join(pre_bin_in[0]),2))
-                display1.set_digit_raw(1,int(s.join(pre_bin_in[1]),2))
-                display1.set_digit_raw(2,int(s.join(pre_bin_in[2]),2))
-                display1.set_digit_raw(3,int(s.join(pre_bin_in[3]),2))
+                try:
+                    display1.set_digit_raw(0,int(s.join(pre_bin_in[0]),2))
+                    display1.set_digit_raw(1,int(s.join(pre_bin_in[1]),2))
+                    display1.set_digit_raw(2,int(s.join(pre_bin_in[2]),2))
+                    display1.set_digit_raw(3,int(s.join(pre_bin_in[3]),2))
+                except:
+                    display1_connect=False
+                    pass
             if display2_connect:
-                display2.set_digit_raw(0,int(s.join(pre_bin_in[4]),2))
-                display2.set_digit_raw(1,int(s.join(pre_bin_in[5]),2))
-                display2.set_digit_raw(2,int(s.join(pre_bin_in[6]),2))
-                display2.set_digit_raw(3,int(s.join(pre_bin_in[7]),2))
+                try:
+                    display2.set_digit_raw(0,int(s.join(pre_bin_in[4]),2))
+                    display2.set_digit_raw(1,int(s.join(pre_bin_in[5]),2))
+                    display2.set_digit_raw(2,int(s.join(pre_bin_in[6]),2))
+                    display2.set_digit_raw(3,int(s.join(pre_bin_in[7]),2))
+                except:
+                    display2_connect=False
+                    pass
             if display3_connect:
-                display3.set_digit_raw(1,int(s.join(ism_bin_in[0]),2))
-                display3.set_digit_raw(2,int(s.join(ism_bin_in[1]),2))
-                display3.set_digit_raw(3,int(s.join(ism_bin_in[2]),2))
+                try:
+                    display3.set_digit_raw(1,int(s.join(ism_bin_in[0]),2))
+                    display3.set_digit_raw(2,int(s.join(ism_bin_in[1]),2))
+                    display3.set_digit_raw(3,int(s.join(ism_bin_in[2]),2))
+                except:
+                    display3_connect=False
+                    pass
             if display4_connect:
-                display4.set_digit_raw(0,int(s.join(ism_bin_in[3]),2))
-                display4.set_digit_raw(1,int(s.join(ism_bin_in[4]),2))
-                display4.set_digit_raw(2,int(s.join(ism_bin_in[5]),2))
-                display4.set_digit_raw(3,int(s.join(ism_bin_in[6]),2))
+                try:
+                    display4.set_digit_raw(0,int(s.join(ism_bin_in[3]),2))
+                    display4.set_digit_raw(1,int(s.join(ism_bin_in[4]),2))
+                    display4.set_digit_raw(2,int(s.join(ism_bin_in[5]),2))
+                    display4.set_digit_raw(3,int(s.join(ism_bin_in[6]),2))
+                except:
+                    display4_connect=False
+                    pass
             if display5_connect:
-                display5.set_digit_raw(0,int(s.join(ism_bin_in[7]),2))
-                display5.set_digit_raw(1,int(s.join(ism_bin_in[8]),2))
-                display5.set_digit_raw(2,int(s.join(ism_bin_in[9]),2))
-                display5.set_digit_raw(3,int(s.join(ism_bin_in[10]),2))
+                try:
+                    display5.set_digit_raw(0,int(s.join(ism_bin_in[7]),2))
+                    display5.set_digit_raw(1,int(s.join(ism_bin_in[8]),2))
+                    display5.set_digit_raw(2,int(s.join(ism_bin_in[9]),2))
+                    display5.set_digit_raw(3,int(s.join(ism_bin_in[10]),2))
+                except:
+                    display5_connect=False
+                    pass
             if display6_connect:
-                display6.set_digit_raw(0,int(s.join(ism_bin_in[11]),2))
-                display6.set_digit_raw(1,int(s.join(ism_bin_in[12]),2))
-                display6.set_digit_raw(2,int(s.join(ism_bin_in[13]),2))
-                display6.set_digit_raw(3,int(s.join(ism_bin_in[14]),2))
+                try:
+                    display6.set_digit_raw(0,int(s.join(ism_bin_in[11]),2))
+                    display6.set_digit_raw(1,int(s.join(ism_bin_in[12]),2))
+                    display6.set_digit_raw(2,int(s.join(ism_bin_in[13]),2))
+                    display6.set_digit_raw(3,int(s.join(ism_bin_in[14]),2))
+                except:
+                    display6_connect=False
+                    pass
             time.sleep(0.5)
 
 
@@ -476,62 +587,134 @@ while True :
         mot6_list[2]=lettre_ism[13]
         mot6_list[3]=lettre_ism[14]
         if display1_connect:
-            display1.print(''.join(mot1_list))
+            try:
+                display1.print(''.join(mot1_list))
+            except:
+                display1_connect=False
+                pass
         if display2_connect:
-            display2.print(''.join(mot2_list))
+            try:
+                display2.print(''.join(mot2_list))
+            except:
+                display2_connect=False
+                pass
         if display3_connect:
-            display3.print(''.join(mot3_list))
+            try:
+                display3.print(''.join(mot3_list))
+            except:
+                display3_connect=False
+                pass
         if display4_connect:
-            display4.print(''.join(mot4_list))
+            try:
+                display4.print(''.join(mot4_list))
+            except:
+                display4_connect=False
+                pass
         if display5_connect:
-            display5.print(''.join(mot5_list))
+            try:
+                display5.print(''.join(mot5_list))
+            except:
+                display5_connect=False
+                pass
         if display6_connect:
-            display6.print(''.join(mot6_list))
+            try:
+                display6.print(''.join(mot6_list))
+            except:
+                display6_connect=False
+                pass
         time.sleep(3)
 
     else :
 
         if display1_connect:
-            display1.set_digit_raw(0,int("0b0011111111111111",2))
-            display1.set_digit_raw(1,int("0b0011111111111111",2))
-            display1.set_digit_raw(2,int("0b0011111111111111",2))
-            display1.set_digit_raw(3,int("0b0011111111111111",2))
+            try:
+                display1.set_digit_raw(0,int("0b0011111111111111",2))
+                display1.set_digit_raw(1,int("0b0011111111111111",2))
+                display1.set_digit_raw(2,int("0b0011111111111111",2))
+                display1.set_digit_raw(3,int("0b0011111111111111",2))
+            except:
+                display1_connect=False
+                pass
         if display2_connect:
-            display2.set_digit_raw(0,int("0b0011111111111111",2))
-            display2.set_digit_raw(1,int("0b0011111111111111",2))
-            display2.set_digit_raw(2,int("0b0011111111111111",2))
-            display2.set_digit_raw(3,int("0b0011111111111111",2))
+            try:
+                display2.set_digit_raw(0,int("0b0011111111111111",2))
+                display2.set_digit_raw(1,int("0b0011111111111111",2))
+                display2.set_digit_raw(2,int("0b0011111111111111",2))
+                display2.set_digit_raw(3,int("0b0011111111111111",2))
+            except:
+                display2_connect=False
+                pass
         if display3_connect:
-            display3.set_digit_raw(0,int("0b0011111111111111",2))
-            display3.set_digit_raw(1,int("0b0011111111111111",2))
-            display3.set_digit_raw(2,int("0b0011111111111111",2))
-            display3.set_digit_raw(3,int("0b0011111111111111",2))
+            try:
+                display3.set_digit_raw(0,int("0b0011111111111111",2))
+                display3.set_digit_raw(1,int("0b0011111111111111",2))
+                display3.set_digit_raw(2,int("0b0011111111111111",2))
+                display3.set_digit_raw(3,int("0b0011111111111111",2))
+            except:
+                display3_connect=False
+                pass
         if display4_connect:
-            display4.set_digit_raw(0,int("0b0011111111111111",2))
-            display4.set_digit_raw(1,int("0b0011111111111111",2))
-            display4.set_digit_raw(2,int("0b0011111111111111",2))
-            display4.set_digit_raw(3,int("0b0011111111111111",2))
+            try:
+                display4.set_digit_raw(0,int("0b0011111111111111",2))
+                display4.set_digit_raw(1,int("0b0011111111111111",2))
+                display4.set_digit_raw(2,int("0b0011111111111111",2))
+                display4.set_digit_raw(3,int("0b0011111111111111",2))
+            except:
+                display4_connect=False
+                pass
         if display5_connect:
-            display5.set_digit_raw(0,int("0b0011111111111111",2))
-            display5.set_digit_raw(1,int("0b0011111111111111",2))
-            display5.set_digit_raw(2,int("0b0011111111111111",2))
-            display5.set_digit_raw(3,int("0b0011111111111111",2))
+            try:
+                display5.set_digit_raw(0,int("0b0011111111111111",2))
+                display5.set_digit_raw(1,int("0b0011111111111111",2))
+                display5.set_digit_raw(2,int("0b0011111111111111",2))
+                display5.set_digit_raw(3,int("0b0011111111111111",2))
+            except:
+                display5_connect=False
+                pass
         if display6_connect:
-            display6.set_digit_raw(0,int("0b0011111111111111",2))
-            display6.set_digit_raw(1,int("0b0011111111111111",2))
-            display6.set_digit_raw(2,int("0b0011111111111111",2))
-            display6.set_digit_raw(3,int("0b0011111111111111",2))
+            try:
+                display6.set_digit_raw(0,int("0b0011111111111111",2))
+                display6.set_digit_raw(1,int("0b0011111111111111",2))
+                display6.set_digit_raw(2,int("0b0011111111111111",2))
+                display6.set_digit_raw(3,int("0b0011111111111111",2))
+            except:
+                display6_connect=False
+                pass
         time.sleep(3)
         if display1_connect:
-            display1.print("1111")
+            try:
+                display1.print("1111")
+            except:
+                display1_connect=False
+                pass
         if display2_connect:
-            display2.print("2222")
+            try:
+                display2.print("2222")
+            except:
+                display2_connect=False
+                pass
         if display3_connect:
-            display3.print("3333")
+            try:
+                display3.print("3333")
+            except:
+                display3_connect=False
+                pass
         if display4_connect:
-            display4.print("4444")
+            try:
+                display4.print("4444")
+            except:
+                display4_connect=False
+                pass
         if display5_connect:
-            display5.print("5555")
+            try:
+                display5.print("5555")
+            except:
+                display5_connect=False
+                pass
         if display6_connect:
-            display6.print("6666")
+            try:
+                display6.print("6666")
+            except:
+                display6_connect=False
+                pass
         time.sleep(3)
