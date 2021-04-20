@@ -5,7 +5,7 @@ import string
 import random
 from adafruit_ht16k33.segments import Seg14x4
 from convert_binaire import convert_bin
-from morph import morph
+
 
 
 
@@ -138,6 +138,51 @@ mot5_list = list(mot5)
 mot6_list = list(mot6)
 
 
+
+segment =[None]*24
+for i in range(0,24):
+
+    segment[i]=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+
+
+
+
+def morph(lettre_in,lettre_out,compteur,compteur_lettre):
+
+    global segment
+
+    random_segment=random.randint(0, 17)
+    if segment[compteur_lettre][random_segment]==1:
+        while segment[compteur_lettre][random_segment]==1:
+            random_segment=random.randint(0, 17)
+    segment[compteur_lettre][random_segment]=1
+
+
+    CHAR_IN=list(lettre_in)
+    CHAR_OUT=list(lettre_out)
+
+    str1 = ""
+    str2 = ""
+    if CHAR_IN[random_segment]!=CHAR_OUT[random_segment]:
+        if CHAR_IN[random_segment]=='0':
+            CHAR_IN[random_segment]='1'
+            return CHAR_IN
+
+
+
+        elif CHAR_IN[random_segment]=='1':
+            CHAR_IN[random_segment]='0'
+
+            return CHAR_IN
+
+    else :
+
+        return CHAR_IN
+
+
+
+
 while True :
 
     if display1_connect==False:
@@ -249,6 +294,12 @@ while True :
                 pre_bin_in[x]=convert_bin(mot2_list[x-4])
 
 
+
+
+
+
+
+
         for x in range (15):
 
             ism_bin_out[x]=convert_bin(lettre_ism[x])
@@ -262,13 +313,16 @@ while True :
                 ism_bin_in[x]=convert_bin(mot6_list[x-11])
 
 
+
+        for i in range(0,24):
+            segment[i]=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+
         for x in range(0,18):
             for y in range (8):
-
-                pre_bin_in[y]=morph(pre_bin_in[y],pre_bin_out[y],x)
+                pre_bin_in[y]=morph(pre_bin_in[y],pre_bin_out[y],x,y)
             for y in range (15):
-
-                ism_bin_in[y]=morph(ism_bin_in[y],ism_bin_out[y],x)
+                ism_bin_in[y]=morph(ism_bin_in[y],ism_bin_out[y],x,y+8)
 
 
             s=''
@@ -326,6 +380,10 @@ while True :
                     display6_connect=False
                     pass
             time.sleep(0.5)
+
+
+
+
 
 
 
