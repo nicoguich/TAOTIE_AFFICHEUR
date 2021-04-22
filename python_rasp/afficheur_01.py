@@ -75,25 +75,36 @@ ism_bin_out = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
 
 
-
 ism = open("ism.txt", "r")
 num_lines_ism = sum(1 for line in open('ism.txt'))
 prob_ism=[None]*num_lines_ism
-list_ism=[None]*num_lines_ism
+temp_list_ism=[None]*num_lines_ism
+
 lettre_ism=[None]*15
 index_ism=0
 for line in ism:
-    list_ism[index_ism]=line
-    list_ism[index_ism]=list_ism[index_ism][:-1]
-    list_ism[index_ism]=list_ism[index_ism].upper()
-    split_ism=list_ism[index_ism].split("/")
-    list_ism[index_ism]=split_ism[0]
+    temp_list_ism[index_ism]=line
+    temp_list_ism[index_ism]=temp_list_ism[index_ism][:-1]
+    temp_list_ism[index_ism]=temp_list_ism[index_ism].upper()
+    split_ism=temp_list_ism[index_ism].split("/")
+    temp_list_ism[index_ism]=split_ism[0]
     try:
-        prob_ism[index_ism]=split_ism[1]
+        prob_ism[index_ism]=int(split_ism[1])
+        if prob_ism[index_ism]=='' or prob_ism[index_ism]== 0:
+            prob_ism[index_ism]=1
     except :
-        prob_ism[index_ism]=0
+        prob_ism[index_ism]=1
         pass
     index_ism+=1
+
+
+list_ism=temp_list_ism
+
+for x in range(0,num_lines_ism):
+    if prob_ism[x]>1:
+        for y in range(0, prob_ism[x]-1):
+            list_ism.append(temp_list_ism[x])
+temp_random_ism=''
 
 
 
@@ -102,25 +113,35 @@ for line in ism:
 
 
 pre = open("pre.txt", "r")
-num_lines_pre= sum(1 for line in open('pre.txt'))
+num_lines_pre = sum(1 for line in open('pre.txt'))
 prob_pre=[None]*num_lines_pre
-list_pre=[None]*num_lines_pre
-lettre_pre=[None]*8
+temp_list_pre=[None]*num_lines_pre
+
+lettre_pre=[None]*15
 index_pre=0
 for line in pre:
-    list_pre[index_pre]=line
-    list_pre[index_pre]=list_pre[index_pre][:-1]
-    list_pre[index_pre]=list_pre[index_pre].upper()
-    split_pre=list_pre[index_pre].split("/")
-    list_pre[index_pre]=split_pre[0]
+    temp_list_pre[index_pre]=line
+    temp_list_pre[index_pre]=temp_list_pre[index_pre][:-1]
+    temp_list_pre[index_pre]=temp_list_pre[index_pre].upper()
+    split_pre=temp_list_pre[index_pre].split("/")
+    temp_list_pre[index_pre]=split_pre[0]
     try:
-        prob_pre[index_pre]=split_pre[1]
+        prob_pre[index_pre]=int(split_pre[1])
+        if prob_pre[index_pre]=='' or prob_pre[index_pre]== 0:
+            prob_pre[index_pre]=1
     except :
-        prob_pre[index_pre]=0
+        prob_pre[index_pre]=1
         pass
     index_pre+=1
 
 
+list_pre=temp_list_pre
+
+for x in range(0,num_lines_pre):
+    if prob_pre[x]>1:
+        for y in range(0, prob_pre[x]-1):
+            list_pre.append(temp_list_pre[x])
+temp_random_pre=''
 
 
 
@@ -260,8 +281,18 @@ while True :
 
 
 
-        random_ism=random.randint(0, num_lines_ism-1)
-        random_pre=random.randint(0, num_lines_pre-1)
+        random_ism=random.randint(0, len(list_ism)-1)
+        random_pre=random.randint(0, len(list_pre)-1)
+
+        while (random_ism==temp_random_ism):
+            random_ism=random.randint(0, len(list_ism)-1)
+
+        while (random_pre==temp_random_pre):
+            random_pre=random.randint(0,len(list_pre)-1)
+
+        temp_random_ism=random_ism
+        temp_random_pre=random_pre
+
 
         ism_choisi= list_ism[random_ism]
         pre_choisi=list_pre[random_pre]
