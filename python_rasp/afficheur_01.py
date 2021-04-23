@@ -205,7 +205,6 @@ def morph(lettre_in,lettre_out,compteur,compteur_lettre):
 
     global segment
     global list_numero_segment
-    print(list_numero_segment[compteur_lettre])
     temp=random.randint(0,len(list_numero_segment[compteur_lettre])-1 )
     random_segment=list_numero_segment[compteur_lettre][temp]
     list_numero_segment[compteur_lettre].pop(temp)
@@ -410,15 +409,15 @@ while True :
 
         while sum(sel_lettre)<48:
 
-            temp_random_sel_lettre=random.randint(0, 23)
-            verif_sel_lettre=0
-            while verif_sel_lettre!=1:
-                if sel_lettre[temp_random_sel_lettre]==2:
-                    temp_random_sel_lettre=random.randint(0, 23)
-                else:
-                    verif_sel_lettre=1
-            print(temp_random_sel_lettre)
-            sel_lettre[temp_random_sel_lettre]=1
+            for x in range(1,random.randint(1,8)):
+                temp_random_sel_lettre=random.randint(0, 23)
+                verif_sel_lettre=0
+                while verif_sel_lettre!=1:
+                    if sel_lettre[temp_random_sel_lettre]==2:
+                        temp_random_sel_lettre=random.randint(0, 23)
+                    else:
+                        verif_sel_lettre=1
+                sel_lettre[temp_random_sel_lettre]=1
             compteur_changement=0
 
             for x in range(0,18):
