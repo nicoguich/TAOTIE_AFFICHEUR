@@ -159,11 +159,43 @@ mot5_list = list(mot5)
 mot6_list = list(mot6)
 
 
-
 segment =[None]*24
 for i in range(0,24):
 
     segment[i]=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+list_numero_segment =[[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]]
+
+
+
+
+
+sel_lettre =[0]*24
+
+
 
 
 
@@ -172,12 +204,11 @@ for i in range(0,24):
 def morph(lettre_in,lettre_out,compteur,compteur_lettre):
 
     global segment
-
-    random_segment=random.randint(0, 17)
-    if segment[compteur_lettre][random_segment]==1:
-        while segment[compteur_lettre][random_segment]==1:
-            random_segment=random.randint(0, 17)
-    segment[compteur_lettre][random_segment]=1
+    global list_numero_segment
+    print(list_numero_segment[compteur_lettre])
+    temp=random.randint(0,len(list_numero_segment[compteur_lettre])-1 )
+    random_segment=list_numero_segment[compteur_lettre][temp]
+    list_numero_segment[compteur_lettre].pop(temp)
 
 
     CHAR_IN=list(lettre_in)
@@ -297,6 +328,30 @@ while True :
         ism_choisi= list_ism[random_ism]
         pre_choisi=list_pre[random_pre]
         print(pre_choisi+"_"+ism_choisi)
+        list_numero_segment =[[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]]
 
 
 
@@ -345,76 +400,96 @@ while True :
 
 
 
+
+
         for i in range(0,24):
             segment[i]=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        for i in range(0,24):
+            sel_lettre[i]=0
 
 
-        for x in range(0,18):
-            for y in range (8):
-                pre_bin_in[y]=morph(pre_bin_in[y],pre_bin_out[y],x,y)
-            for y in range (15):
-                ism_bin_in[y]=morph(ism_bin_in[y],ism_bin_out[y],x,y+8)
+        while sum(sel_lettre)<48:
+
+            temp_random_sel_lettre=random.randint(0, 23)
+            verif_sel_lettre=0
+            while verif_sel_lettre!=1:
+                if sel_lettre[temp_random_sel_lettre]==2:
+                    temp_random_sel_lettre=random.randint(0, 23)
+                else:
+                    verif_sel_lettre=1
+            print(temp_random_sel_lettre)
+            sel_lettre[temp_random_sel_lettre]=1
+            compteur_changement=0
+
+            for x in range(0,18):
+                for y in range (8):
+                    if sel_lettre[y]==1 and pre_bin_in[y]!=pre_bin_out[y]:
+                        pre_bin_in[y]=morph(pre_bin_in[y],pre_bin_out[y],x,y)
+                        compteur_changement+=1
+
+                for y in range (15):
+                    if sel_lettre[y+8]==1 and ism_bin_in[y]!= ism_bin_out[y]:
+                        ism_bin_in[y]=morph(ism_bin_in[y],ism_bin_out[y],x,y+8)
+                        compteur_changement+=1
 
 
-            s=''
-            if display1_connect:
-                try:
-                    display1.set_digit_raw(0,int(s.join(pre_bin_in[0]),2))
-                    display1.set_digit_raw(1,int(s.join(pre_bin_in[1]),2))
-                    display1.set_digit_raw(2,int(s.join(pre_bin_in[2]),2))
-                    display1.set_digit_raw(3,int(s.join(pre_bin_in[3]),2))
-                except:
-                    display1_connect=False
-                    pass
-            if display2_connect:
-                try:
-                    display2.set_digit_raw(0,int(s.join(pre_bin_in[4]),2))
-                    display2.set_digit_raw(1,int(s.join(pre_bin_in[5]),2))
-                    display2.set_digit_raw(2,int(s.join(pre_bin_in[6]),2))
-                    display2.set_digit_raw(3,int(s.join(pre_bin_in[7]),2))
-                except:
-                    display2_connect=False
-                    pass
-            if display3_connect:
-                try:
-                    display3.set_digit_raw(1,int(s.join(ism_bin_in[0]),2))
-                    display3.set_digit_raw(2,int(s.join(ism_bin_in[1]),2))
-                    display3.set_digit_raw(3,int(s.join(ism_bin_in[2]),2))
-                except:
-                    display3_connect=False
-                    pass
-            if display4_connect:
-                try:
-                    display4.set_digit_raw(0,int(s.join(ism_bin_in[3]),2))
-                    display4.set_digit_raw(1,int(s.join(ism_bin_in[4]),2))
-                    display4.set_digit_raw(2,int(s.join(ism_bin_in[5]),2))
-                    display4.set_digit_raw(3,int(s.join(ism_bin_in[6]),2))
-                except:
-                    display4_connect=False
-                    pass
-            if display5_connect:
-                try:
-                    display5.set_digit_raw(0,int(s.join(ism_bin_in[7]),2))
-                    display5.set_digit_raw(1,int(s.join(ism_bin_in[8]),2))
-                    display5.set_digit_raw(2,int(s.join(ism_bin_in[9]),2))
-                    display5.set_digit_raw(3,int(s.join(ism_bin_in[10]),2))
-                except:
-                    display5_connect=False
-                    pass
-            if display6_connect:
-                try:
-                    display6.set_digit_raw(0,int(s.join(ism_bin_in[11]),2))
-                    display6.set_digit_raw(1,int(s.join(ism_bin_in[12]),2))
-                    display6.set_digit_raw(2,int(s.join(ism_bin_in[13]),2))
-                    display6.set_digit_raw(3,int(s.join(ism_bin_in[14]),2))
-                except:
-                    display6_connect=False
-                    pass
-            time.sleep(0.5)
-
-
-
-
+                s=''
+                if display1_connect:
+                    try:
+                        display1.set_digit_raw(0,int(s.join(pre_bin_in[0]),2))
+                        display1.set_digit_raw(1,int(s.join(pre_bin_in[1]),2))
+                        display1.set_digit_raw(2,int(s.join(pre_bin_in[2]),2))
+                        display1.set_digit_raw(3,int(s.join(pre_bin_in[3]),2))
+                    except:
+                        display1_connect=False
+                        pass
+                if display2_connect:
+                    try:
+                        display2.set_digit_raw(0,int(s.join(pre_bin_in[4]),2))
+                        display2.set_digit_raw(1,int(s.join(pre_bin_in[5]),2))
+                        display2.set_digit_raw(2,int(s.join(pre_bin_in[6]),2))
+                        display2.set_digit_raw(3,int(s.join(pre_bin_in[7]),2))
+                    except:
+                        display2_connect=False
+                        pass
+                if display3_connect:
+                    try:
+                        display3.set_digit_raw(1,int(s.join(ism_bin_in[0]),2))
+                        display3.set_digit_raw(2,int(s.join(ism_bin_in[1]),2))
+                        display3.set_digit_raw(3,int(s.join(ism_bin_in[2]),2))
+                    except:
+                        display3_connect=False
+                        pass
+                if display4_connect:
+                    try:
+                        display4.set_digit_raw(0,int(s.join(ism_bin_in[3]),2))
+                        display4.set_digit_raw(1,int(s.join(ism_bin_in[4]),2))
+                        display4.set_digit_raw(2,int(s.join(ism_bin_in[5]),2))
+                        display4.set_digit_raw(3,int(s.join(ism_bin_in[6]),2))
+                    except:
+                        display4_connect=False
+                        pass
+                if display5_connect:
+                    try:
+                        display5.set_digit_raw(0,int(s.join(ism_bin_in[7]),2))
+                        display5.set_digit_raw(1,int(s.join(ism_bin_in[8]),2))
+                        display5.set_digit_raw(2,int(s.join(ism_bin_in[9]),2))
+                        display5.set_digit_raw(3,int(s.join(ism_bin_in[10]),2))
+                    except:
+                        display5_connect=False
+                        pass
+                if display6_connect:
+                    try:
+                        display6.set_digit_raw(0,int(s.join(ism_bin_in[11]),2))
+                        display6.set_digit_raw(1,int(s.join(ism_bin_in[12]),2))
+                        display6.set_digit_raw(2,int(s.join(ism_bin_in[13]),2))
+                        display6.set_digit_raw(3,int(s.join(ism_bin_in[14]),2))
+                    except:
+                        display6_connect=False
+                        pass
+                if compteur_changement>0:
+                    time.sleep(0.02)
+            sel_lettre[temp_random_sel_lettre]=2
 
 
 
