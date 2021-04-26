@@ -11,7 +11,6 @@ from convert_binaire import convert_bin
 
 adresse=0
 
-
 GPIO.setmode(GPIO.BCM)     # set up BCM GPIO numbering
 GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -164,6 +163,8 @@ for i in range(0,24):
 
     segment[i]=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
+temp_random_sel_lettre=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+
 list_numero_segment =[[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
 [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
 [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
@@ -201,7 +202,7 @@ sel_lettre =[0]*24
 
 
 
-def morph(lettre_in,lettre_out,compteur,compteur_lettre):
+def morph(lettre_in,lettre_out,compteur,compteur_lettre,state):
 
     global segment
     global list_numero_segment
@@ -406,29 +407,31 @@ while True :
         for i in range(0,24):
             sel_lettre[i]=0
 
+        temp_random_sel_lettre=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
 
-        while sum(sel_lettre)<48:
+        while sum(sel_lettre)<23:
 
-            for x in range(1,random.randint(1,8)):
-                temp_random_sel_lettre=random.randint(0, 23)
-                verif_sel_lettre=0
-                while verif_sel_lettre!=1:
-                    if sel_lettre[temp_random_sel_lettre]==2:
-                        temp_random_sel_lettre=random.randint(0, 23)
-                    else:
-                        verif_sel_lettre=1
-                sel_lettre[temp_random_sel_lettre]=1
+
+            for x in range(0,random.randint(0,len(temp_random_sel_lettre))):
+                temp=random.randint(0, len(temp_random_sel_lettre)-1)
+                print(temp_random_sel_lettre[temp])
+
+                sel_lettre[temp_random_sel_lettre[temp]]=1
+                print(sel_lettre)
+                temp_random_sel_lettre.pop(temp)
+
             compteur_changement=0
 
             for x in range(0,18):
-                for y in range (8):
+
+                for y in range (0,8):
                     if sel_lettre[y]==1 and pre_bin_in[y]!=pre_bin_out[y]:
-                        pre_bin_in[y]=morph(pre_bin_in[y],pre_bin_out[y],x,y)
+                        pre_bin_in[y]=morph(pre_bin_in[y],pre_bin_out[y],x,y,sel_lettre[y])
                         compteur_changement+=1
 
-                for y in range (15):
+                for y in range (0,15):
                     if sel_lettre[y+8]==1 and ism_bin_in[y]!= ism_bin_out[y]:
-                        ism_bin_in[y]=morph(ism_bin_in[y],ism_bin_out[y],x,y+8)
+                        ism_bin_in[y]=morph(ism_bin_in[y],ism_bin_out[y],x,y+8,sel_lettre[y+8])
                         compteur_changement+=1
 
 
@@ -487,8 +490,7 @@ while True :
                         display6_connect=False
                         pass
                 if compteur_changement>0:
-                    time.sleep(0.02)
-            sel_lettre[temp_random_sel_lettre]=2
+                    time.sleep(0.2)
 
 
 
