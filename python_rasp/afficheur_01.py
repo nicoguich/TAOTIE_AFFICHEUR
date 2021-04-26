@@ -235,6 +235,9 @@ def morph(lettre_in,lettre_out,compteur,compteur_lettre,state):
 
 
 
+
+
+
 while True :
 
     if display1_connect==False:
@@ -525,42 +528,13 @@ while True :
         mot6_list[1]=lettre_ism[12]
         mot6_list[2]=lettre_ism[13]
         mot6_list[3]=lettre_ism[14]
-        if display1_connect:
-            try:
-                display1.print(''.join(mot1_list))
-            except:
-                display1_connect=False
-                pass
-        if display2_connect:
-            try:
-                display2.print(''.join(mot2_list))
-            except:
-                display2_connect=False
-                pass
         if display3_connect:
             try:
-                display3.print(''.join(mot3_list))
+                display3.set_digit_raw(0,int("0b0000000000001000",2))
             except:
                 display3_connect=False
                 pass
-        if display4_connect:
-            try:
-                display4.print(''.join(mot4_list))
-            except:
-                display4_connect=False
-                pass
-        if display5_connect:
-            try:
-                display5.print(''.join(mot5_list))
-            except:
-                display5_connect=False
-                pass
-        if display6_connect:
-            try:
-                display6.print(''.join(mot6_list))
-            except:
-                display6_connect=False
-                pass
+
         time.sleep(3)
 
     else :
