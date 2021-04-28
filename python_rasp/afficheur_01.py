@@ -8,7 +8,7 @@ from convert_binaire import convert_bin
 
 
 
-
+miroir=True
 adresse=0
 
 GPIO.setmode(GPIO.BCM)     # set up BCM GPIO numbering
@@ -376,11 +376,11 @@ while True :
 
         for x in range (8):
 
-            pre_bin_out[x]=convert_bin(lettre_pre[x])
+            pre_bin_out[x]=convert_bin(lettre_pre[x],miroir)
             if x<=3 :
-                pre_bin_in[x]=convert_bin(mot1_list[x])
+                pre_bin_in[x]=convert_bin(mot1_list[x],miroir)
             else :
-                pre_bin_in[x]=convert_bin(mot2_list[x-4])
+                pre_bin_in[x]=convert_bin(mot2_list[x-4],miroir)
 
 
 
@@ -391,15 +391,15 @@ while True :
 
         for x in range (15):
 
-            ism_bin_out[x]=convert_bin(lettre_ism[x])
+            ism_bin_out[x]=convert_bin(lettre_ism[x],miroir)
             if x<=2 :
-                ism_bin_in[x]=convert_bin(mot3_list[x+1])
+                ism_bin_in[x]=convert_bin(mot3_list[x+1],miroir)
             elif x>2 and x<=6 :
-                ism_bin_in[x]=convert_bin(mot4_list[x-3])
+                ism_bin_in[x]=convert_bin(mot4_list[x-3],miroir)
             elif x>6 and x<=10 :
-                ism_bin_in[x]=convert_bin(mot5_list[x-7])
+                ism_bin_in[x]=convert_bin(mot5_list[x-7],miroir)
             elif x>10 :
-                ism_bin_in[x]=convert_bin(mot6_list[x-11])
+                ism_bin_in[x]=convert_bin(mot6_list[x-11],miroir)
 
 
 
@@ -417,10 +417,10 @@ while True :
 
             for x in range(0,random.randint(0,len(temp_random_sel_lettre))):
                 temp=random.randint(0, len(temp_random_sel_lettre)-1)
-                print(temp_random_sel_lettre[temp])
+
 
                 sel_lettre[temp_random_sel_lettre[temp]]=1
-                print(sel_lettre)
+
                 temp_random_sel_lettre.pop(temp)
 
             compteur_changement=0
@@ -439,59 +439,124 @@ while True :
 
 
                 s=''
-                if display1_connect:
-                    try:
-                        display1.set_digit_raw(0,int(s.join(pre_bin_in[0]),2))
-                        display1.set_digit_raw(1,int(s.join(pre_bin_in[1]),2))
-                        display1.set_digit_raw(2,int(s.join(pre_bin_in[2]),2))
-                        display1.set_digit_raw(3,int(s.join(pre_bin_in[3]),2))
-                    except:
-                        display1_connect=False
-                        pass
-                if display2_connect:
-                    try:
-                        display2.set_digit_raw(0,int(s.join(pre_bin_in[4]),2))
-                        display2.set_digit_raw(1,int(s.join(pre_bin_in[5]),2))
-                        display2.set_digit_raw(2,int(s.join(pre_bin_in[6]),2))
-                        display2.set_digit_raw(3,int(s.join(pre_bin_in[7]),2))
-                    except:
-                        display2_connect=False
-                        pass
-                if display3_connect:
-                    try:
-                        display3.set_digit_raw(1,int(s.join(ism_bin_in[0]),2))
-                        display3.set_digit_raw(2,int(s.join(ism_bin_in[1]),2))
-                        display3.set_digit_raw(3,int(s.join(ism_bin_in[2]),2))
-                    except:
-                        display3_connect=False
-                        pass
-                if display4_connect:
-                    try:
-                        display4.set_digit_raw(0,int(s.join(ism_bin_in[3]),2))
-                        display4.set_digit_raw(1,int(s.join(ism_bin_in[4]),2))
-                        display4.set_digit_raw(2,int(s.join(ism_bin_in[5]),2))
-                        display4.set_digit_raw(3,int(s.join(ism_bin_in[6]),2))
-                    except:
-                        display4_connect=False
-                        pass
-                if display5_connect:
-                    try:
-                        display5.set_digit_raw(0,int(s.join(ism_bin_in[7]),2))
-                        display5.set_digit_raw(1,int(s.join(ism_bin_in[8]),2))
-                        display5.set_digit_raw(2,int(s.join(ism_bin_in[9]),2))
-                        display5.set_digit_raw(3,int(s.join(ism_bin_in[10]),2))
-                    except:
-                        display5_connect=False
-                        pass
-                if display6_connect:
-                    try:
-                        display6.set_digit_raw(0,int(s.join(ism_bin_in[11]),2))
-                        display6.set_digit_raw(1,int(s.join(ism_bin_in[12]),2))
-                        display6.set_digit_raw(2,int(s.join(ism_bin_in[13]),2))
-                        display6.set_digit_raw(3,int(s.join(ism_bin_in[14]),2))
-                    except:
-                        display6_connect=False
-                        pass
+                if miroir==False:
+                    if display1_connect:
+                        try:
+                            display1.set_digit_raw(0,int(s.join(pre_bin_in[0]),2))
+                            display1.set_digit_raw(1,int(s.join(pre_bin_in[1]),2))
+                            display1.set_digit_raw(2,int(s.join(pre_bin_in[2]),2))
+                            display1.set_digit_raw(3,int(s.join(pre_bin_in[3]),2))
+                        except:
+                            display1_connect=False
+                            pass
+                    if display2_connect:
+                        try:
+                            display2.set_digit_raw(0,int(s.join(pre_bin_in[4]),2))
+                            display2.set_digit_raw(1,int(s.join(pre_bin_in[5]),2))
+                            display2.set_digit_raw(2,int(s.join(pre_bin_in[6]),2))
+                            display2.set_digit_raw(3,int(s.join(pre_bin_in[7]),2))
+                        except:
+                            display2_connect=False
+                            pass
+                    if display3_connect:
+                        try:
+                            display3.set_digit_raw(1,int(s.join(ism_bin_in[0]),2))
+                            display3.set_digit_raw(2,int(s.join(ism_bin_in[1]),2))
+                            display3.set_digit_raw(3,int(s.join(ism_bin_in[2]),2))
+                        except:
+                            display3_connect=False
+                            pass
+                    if display4_connect:
+                        try:
+                            display4.set_digit_raw(0,int(s.join(ism_bin_in[3]),2))
+                            display4.set_digit_raw(1,int(s.join(ism_bin_in[4]),2))
+                            display4.set_digit_raw(2,int(s.join(ism_bin_in[5]),2))
+                            display4.set_digit_raw(3,int(s.join(ism_bin_in[6]),2))
+                        except:
+                            display4_connect=False
+                            pass
+                    if display5_connect:
+                        try:
+                            display5.set_digit_raw(0,int(s.join(ism_bin_in[7]),2))
+                            display5.set_digit_raw(1,int(s.join(ism_bin_in[8]),2))
+                            display5.set_digit_raw(2,int(s.join(ism_bin_in[9]),2))
+                            display5.set_digit_raw(3,int(s.join(ism_bin_in[10]),2))
+                        except:
+                            display5_connect=False
+                            pass
+                    if display6_connect:
+                        try:
+                            display6.set_digit_raw(0,int(s.join(ism_bin_in[11]),2))
+                            display6.set_digit_raw(1,int(s.join(ism_bin_in[12]),2))
+                            display6.set_digit_raw(2,int(s.join(ism_bin_in[13]),2))
+                            display6.set_digit_raw(3,int(s.join(ism_bin_in[14]),2))
+                        except:
+                            display6_connect=False
+                            pass
+
+
+                else:
+
+                    if display6_connect:
+                        try:
+                            display6.set_digit_raw(3,int(s.join(pre_bin_in[0]),2))
+                            display6.set_digit_raw(2,int(s.join(pre_bin_in[1]),2))
+                            display6.set_digit_raw(1,int(s.join(pre_bin_in[2]),2))
+                            display6.set_digit_raw(0,int(s.join(pre_bin_in[3]),2))
+                        except:
+                            display6_connect=False
+                            pass
+                    if display5_connect:
+                        try:
+                            display5.set_digit_raw(3,int(s.join(pre_bin_in[4]),2))
+                            display5.set_digit_raw(2,int(s.join(pre_bin_in[5]),2))
+                            display5.set_digit_raw(1,int(s.join(pre_bin_in[6]),2))
+                            display5.set_digit_raw(0,int(s.join(pre_bin_in[7]),2))
+                        except:
+                            display5_connect=False
+                            pass
+                    if display4_connect:
+                        try:
+                            display4.set_digit_raw(2,int(s.join(ism_bin_in[0]),2))
+                            display4.set_digit_raw(1,int(s.join(ism_bin_in[1]),2))
+                            display4.set_digit_raw(0,int(s.join(ism_bin_in[2]),2))
+                        except:
+                            display4_connect=False
+                            pass
+                    if display3_connect:
+                        try:
+                            display3.set_digit_raw(3,int(s.join(ism_bin_in[3]),2))
+                            display3.set_digit_raw(2,int(s.join(ism_bin_in[4]),2))
+                            display3.set_digit_raw(1,int(s.join(ism_bin_in[5]),2))
+                            display3.set_digit_raw(0,int(s.join(ism_bin_in[6]),2))
+                        except:
+                            display3_connect=False
+                            pass
+                    if display2_connect:
+                        try:
+                            display2.set_digit_raw(3,int(s.join(ism_bin_in[7]),2))
+                            display2.set_digit_raw(2,int(s.join(ism_bin_in[8]),2))
+                            display2.set_digit_raw(1,int(s.join(ism_bin_in[9]),2))
+                            display2.set_digit_raw(0,int(s.join(ism_bin_in[10]),2))
+                        except:
+                            display2_connect=False
+                            pass
+                    if display1_connect:
+                        try:
+                            display1.set_digit_raw(3,int(s.join(ism_bin_in[11]),2))
+                            display1.set_digit_raw(2,int(s.join(ism_bin_in[12]),2))
+                            display1.set_digit_raw(1,int(s.join(ism_bin_in[13]),2))
+                            display1.set_digit_raw(0,int(s.join(ism_bin_in[14]),2))
+                        except:
+                            display1_connect=False
+                            pass
+
+
+
+
+
+
+
                 if compteur_changement>0:
                     time.sleep(0.2)
 
@@ -528,12 +593,25 @@ while True :
         mot6_list[1]=lettre_ism[12]
         mot6_list[2]=lettre_ism[13]
         mot6_list[3]=lettre_ism[14]
-        if display3_connect:
-            try:
-                display3.set_digit_raw(0,int("0b0000000000001000",2))
-            except:
-                display3_connect=False
-                pass
+
+        if miroir==False:
+            if display3_connect:
+                try:
+                    display3.set_digit_raw(0,int("0b0000000000001000",2))
+                except:
+                    display3_connect=False
+                    pass
+        else:
+            if display4_connect:
+                try:
+                    display4.set_digit_raw(3,int("0b0000000000001000",2))
+                except:
+                    display4_connect=False
+                    pass
+
+
+
+
 
         time.sleep(3)
 
