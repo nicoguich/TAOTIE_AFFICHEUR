@@ -8,8 +8,9 @@ from convert_binaire import convert_bin
 
 
 
-miroir=True
+miroir=False
 adresse=0
+tour=0
 
 GPIO.setmode(GPIO.BCM)     # set up BCM GPIO numbering
 GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -288,6 +289,7 @@ while True :
 
 
     adresse=0
+    tour=0
     if GPIO.input(23):
         adresse=adresse+2**6
     if GPIO.input(24):
@@ -412,10 +414,13 @@ while True :
 
         temp_random_sel_lettre=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
 
-        while sum(sel_lettre)<23:
+        while sum(sel_lettre)<24:
 
-
-            for x in range(0,random.randint(0,len(temp_random_sel_lettre))):
+            if (tour<2):
+                temp_range=random.randint(1,2)
+            else:
+                temp_range=random.randint(1,len(temp_random_sel_lettre))
+            for x in range(0,temp_range):
                 temp=random.randint(0, len(temp_random_sel_lettre)-1)
 
 
@@ -556,9 +561,9 @@ while True :
 
 
 
-
+                tour+=1
                 if compteur_changement>0:
-                    time.sleep(0.2)
+                    time.sleep(0.4)
 
 
 
@@ -613,7 +618,7 @@ while True :
 
 
 
-        time.sleep(3)
+        time.sleep(10)
 
     else :
 
