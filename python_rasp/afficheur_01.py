@@ -8,7 +8,7 @@ from convert_binaire import convert_bin
 
 
 
-miroir=False
+#miroir=False
 adresse=0
 tour=0
 
@@ -72,6 +72,25 @@ pre_bin_in = [0,0,0,0,0,0,0,0]
 pre_bin_out = [0,0,0,0,0,0,0,0]
 ism_bin_in = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 ism_bin_out = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+
+
+
+parametre = open("parametre.txt","r")
+num_lines_parametre = sum(1 for line in open('parametre.txt'))
+Lines_parametre = parametre.readlines()
+miroir_temp=Lines_parametre[0].split(" ")
+miroir=int(miroir_temp[1])
+temps_transition_min_temp=Lines_parametre[1].split(" ")
+temps_transition_min=float(temps_transition_min_temp[1])
+temps_transition_max_temp=Lines_parametre[2].split(" ")
+temps_transition_max=float(temps_transition_max_temp[1])
+temps_fixe_temp=Lines_parametre[3].split(" ")
+temps_fixe=float(temps_fixe_temp[1])
+print(miroir)
+
+
+
 
 
 
@@ -207,6 +226,8 @@ def morph(lettre_in,lettre_out,compteur,compteur_lettre,state):
 
     global segment
     global list_numero_segment
+    global temps_transition_min
+    global temps_transition_max
     temp=random.randint(0,len(list_numero_segment[compteur_lettre])-1 )
     random_segment=list_numero_segment[compteur_lettre][temp]
     list_numero_segment[compteur_lettre].pop(temp)
@@ -220,12 +241,14 @@ def morph(lettre_in,lettre_out,compteur,compteur_lettre,state):
     if CHAR_IN[random_segment]!=CHAR_OUT[random_segment]:
         if CHAR_IN[random_segment]=='0':
             CHAR_IN[random_segment]='1'
+            time.sleep(random.uniform(temps_transition_min, temps_transition_max))
             return CHAR_IN
 
 
 
         elif CHAR_IN[random_segment]=='1':
             CHAR_IN[random_segment]='0'
+            time.sleep(random.uniform(temps_transition_min, temps_transition_max))
 
             return CHAR_IN
 
@@ -562,8 +585,8 @@ while True :
 
 
                 tour+=1
-                if compteur_changement>0:
-                    time.sleep(0.4)
+#                if compteur_changement>0:
+#                    time.sleep(0.4)
 
 
 
@@ -618,7 +641,7 @@ while True :
 
 
 
-        time.sleep(10)
+        time.sleep(temps_fixe)
 
     else :
 
